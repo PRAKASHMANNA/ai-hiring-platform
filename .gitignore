@@ -1,0 +1,32 @@
+## Maven
+#target/
+#*.class
+#
+## IntelliJ
+#.idea/
+#*.iml
+#
+## Environment
+#application.properties
+#*.env
+#
+## Logs
+#*.log
+# Maven build files
+**/target/
+**/*.class
+
+# IntelliJ files
+**/.idea/
+**/*.iml
+*.iml
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Sensitive files
+**/application.properties
