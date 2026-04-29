@@ -1,0 +1,25 @@
+# Server
+server.port=8080
+spring.application.name=api-gateway
+spring.main.web-application-type=servlet
+
+# Routes
+spring.cloud.gateway.mvc.routes[0].id=auth-service
+spring.cloud.gateway.mvc.routes[0].uri=http://localhost:8081
+spring.cloud.gateway.mvc.routes[0].predicates[0]=Path=/api/auth/**
+spring.cloud.gateway.mvc.routes[0].filters[0]=StripPrefix=0
+
+spring.cloud.gateway.mvc.routes[1].id=job-service
+spring.cloud.gateway.mvc.routes[1].uri=http://localhost:8082
+spring.cloud.gateway.mvc.routes[1].predicates[0]=Path=/api/jobs/**
+spring.cloud.gateway.mvc.routes[1].filters[0]=StripPrefix=0
+
+spring.cloud.gateway.mvc.routes[2].id=resume-service
+spring.cloud.gateway.mvc.routes[2].uri=http://localhost:8083
+spring.cloud.gateway.mvc.routes[2].predicates[0]=Path=/api/resume/**
+spring.cloud.gateway.mvc.routes[2].filters[0]=StripPrefix=0
+
+spring.cloud.gateway.mvc.routes[3].id=application-service
+spring.cloud.gateway.mvc.routes[3].uri=http://localhost:8084
+spring.cloud.gateway.mvc.routes[3].predicates[0]=Path=/api/applications/**
+spring.cloud.gateway.mvc.routes[3].filters[0]=StripPrefix=0
