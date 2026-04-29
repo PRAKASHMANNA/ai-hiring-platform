@@ -1,0 +1,16 @@
+# Server
+server.port=8083
+spring.application.name=resume-service
+
+# MongoDB
+spring.data.mongodb.host=localhost
+spring.data.mongodb.port=27017
+spring.data.mongodb.database=hireai_resumes
+
+# JWT
+jwt.secret=YOUR_JWT_SECRET_KEY_MINIMUM_256_BITS_LONG
+jwt.expiration=86400000
+
+# File Upload
+spring.servlet.multipart.max-file-size=10MB
+spring.servlet.multipart.max-request-size=10MB
