@@ -3,6 +3,8 @@ package com.ai.hiring.job_service.repository;
 
 
 import com.ai.hiring.job_service.model.Job;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -22,4 +24,6 @@ public interface JobRepository extends JpaRepository<Job, Long> {
     List<Job> findByJobType(String jobType);
 
     List<Job> findByExperienceLevel(String experienceLevel);
+
+    Page<Job> findByStatus(Job.JobStatus status, Pageable pageable);
 }

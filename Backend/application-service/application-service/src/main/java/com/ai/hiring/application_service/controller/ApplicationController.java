@@ -6,6 +6,7 @@ import com.ai.hiring.application_service.service.ApplicationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,7 @@ public class ApplicationController {
     private final ApplicationService applicationService;
 
     // Candidate — job pe apply karo
+    @PreAuthorize("hasRole('CANDIDATE')")
     @PostMapping("/apply")
     public ResponseEntity<ApplicationResponse> applyForJob(
             @Valid @RequestBody ApplicationRequest request,
@@ -29,6 +31,7 @@ public class ApplicationController {
     }
 
     // Candidate — apne applications dekho
+    @PreAuthorize("hasRole('CANDIDATE')")
     @GetMapping("/my-applications")
     public ResponseEntity<List<ApplicationResponse>> getMyApplications(
             @AuthenticationPrincipal String email) {
@@ -37,6 +40,7 @@ public class ApplicationController {
     }
 
     // Recruiter — job ke applications dekho
+    @PreAuthorize("hasRole('CANDIDATE')")
     @GetMapping("/job/{jobId}")
     public ResponseEntity<List<ApplicationResponse>> getApplicationsByJob(
             @PathVariable Long jobId) {
@@ -45,6 +49,7 @@ public class ApplicationController {
     }
 
     // Recruiter — status update karo
+    @PreAuthorize("hasRole('CANDIDATE')")
     @PutMapping("/{id}/status")
     public ResponseEntity<ApplicationResponse> updateStatus(
             @PathVariable Long id,

@@ -6,6 +6,10 @@ import com.ai.hiring.job_service.dto.JobResponse;
 import com.ai.hiring.job_service.model.Job;
 import com.ai.hiring.job_service.repository.JobRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
@@ -43,11 +47,16 @@ public class JobService {
     }
 
     // all active jobs (Candidate)
-    public List<JobResponse> getAllActiveJobs() {
+    /*public List<JobResponse> getAllActiveJobs() {
         return jobRepository.findByStatus(Job.JobStatus.ACTIVE)
                 .stream()
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
+    }*/
+    public Page<JobResponse> getAllActiveJobs(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+        return jobRepository.findByStatus(Job.JobStatus.ACTIVE, pageable)
+                .map(this::mapToResponse);
     }
 
     // Single job by ID
@@ -113,7 +122,8 @@ public class JobService {
                     .map(this::mapToResponse)
                     .collect(Collectors.toList());
         }
-        return getAllActiveJobs();
+//        return getAllActiveJobs();
+        return getAllActiveJobs(0, 100).getContent();
     }
 
     // Job to Response mapper

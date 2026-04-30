@@ -6,6 +6,7 @@ import com.ai.hiring.resume_service.dto.ResumeResponse;
 import com.ai.hiring.resume_service.service.ResumeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,6 +23,7 @@ public class ResumeController {
     private final ResumeService resumeService;
 
     // Resume upload
+    @PreAuthorize("hasRole('CANDIDATE')")
     @PostMapping("/upload")
     public ResponseEntity<ResumeResponse> uploadResume(
             @RequestParam("file") MultipartFile file,
@@ -32,6 +34,7 @@ public class ResumeController {
     }
 
     // AI Analyze
+    @PreAuthorize("hasRole('CANDIDATE')")
     @PostMapping("/analyze")
     public ResponseEntity<ResumeResponse> analyzeResume(
             @RequestBody AnalyzeRequest request,
@@ -41,6 +44,7 @@ public class ResumeController {
     }
 
     // Apne saare resumes dekho
+    @PreAuthorize("hasRole('CANDIDATE')")
     @GetMapping("/my-resumes")
     public ResponseEntity<List<ResumeResponse>> getMyResumes(
             @AuthenticationPrincipal String email) {
@@ -48,6 +52,7 @@ public class ResumeController {
     }
 
     // Single resume by ID
+
     @GetMapping("/{id}")
     public ResponseEntity<ResumeResponse> getResumeById(
             @PathVariable String id) {
