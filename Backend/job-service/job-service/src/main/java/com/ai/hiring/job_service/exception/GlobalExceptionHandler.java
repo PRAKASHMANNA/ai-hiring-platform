@@ -53,7 +53,7 @@ public class GlobalExceptionHandler {
             Exception ex) {
         Map<String, Object> response = new HashMap<>();
         response.put("success", false);
-        response.put("message", "Something went wrong!");
+        response.put("message", ex.getMessage());
         response.put("status", 500);
         response.put("timestamp", LocalDateTime.now());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
